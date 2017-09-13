@@ -1,5 +1,5 @@
 <?php 
-namespace src\models;
+namespace Models;
 	Class Guest {
 
 
