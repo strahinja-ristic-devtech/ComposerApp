@@ -10,7 +10,19 @@ $app = new \Slim\App;
 $container = $app->getContainer();
 $container['view'] = new \Slim\Views\PhpRenderer("../templates/");
 
+/*
+$container['view'] = function ($container) {
+    $view = new \Slim\Views\Twig("../templates/", [
+        'cache' => 'path/to/cache'
+    ]);
+    
+    // Instantiate and add Slim specific extension
+    $basePath = rtrim(str_ireplace('index.php', '', $container['request']->getUri()->getBasePath()), '/');
+    $view->addExtension(new Slim\Views\TwigExtension($container['router'], $basePath));
 
+    return $view;
+};
+*/
 
 $app->get('/hello/{name}', function (Request $request, Response $response) {
     $name = $request->getAttribute('name');
@@ -24,7 +36,7 @@ $app->get('/tickets', function (Request $request, Response $response) {
     //$mapper = new TicketMapper($this->db);
    // $tickets = $mapper->getTickets();
 
-    $response = $this->view->render($response, "tickets.phtml",[]);
+    $response = $this->view->render($response, "tickets.phtml", array("hello" => "Hi"));
 
     return $response;
 });
