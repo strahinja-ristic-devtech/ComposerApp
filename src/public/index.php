@@ -4,11 +4,14 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require '../../vendor/autoload.php';
 
-					
+	
 $app = new \Slim\App;
 
 $container = $app->getContainer();
-$container['view'] = new \Slim\Views\PhpRenderer("../templates/");
+$container['view'] = new \Slim\Views\Twig("../templates/");
+
+
+
 
 /*
 $container['view'] = function ($container) {
@@ -31,12 +34,25 @@ $app->get('/hello/{name}', function (Request $request, Response $response) {
     return $response;
 });
 
-$app->get('/tickets', function (Request $request, Response $response) {
+$app->get('/cats', function (Request $request, Response $response) {
     //$this->logger->addInfo("Ticket list");
     //$mapper = new TicketMapper($this->db);
    // $tickets = $mapper->getTickets();
 
-    $response = $this->view->render($response, "tickets.phtml", array("hello" => "Hi"));
+
+    $response = $this->view->render($response, "cats.phtml", array("hello" => "Hi"));
+
+    return $response;
+});
+
+$app->get('/guests', function (Request $request, Response $response) {
+    //$this->logger->addInfo("Ticket list");
+    //$mapper = new TicketMapper($this->db);
+   // $tickets = $mapper->getTickets();
+	$guests = new Acme\models\Guest("Pera","peric");
+
+
+    $response = $this->view->render($response, "guests.phtml",  ["guests" => $guests]);
 
     return $response;
 });

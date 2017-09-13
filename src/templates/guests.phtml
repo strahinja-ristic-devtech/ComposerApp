@@ -1,0 +1,18 @@
+
+<html>
+<head>
+
+</head>
+
+<body>
+
+
+ {% for guest in guest %}
+	{{guest.name}}
+	{{guest.surname}}
+ {% else %}
+ 	No users have been found
+ {% endfor %}
+</body>
+
+</html>

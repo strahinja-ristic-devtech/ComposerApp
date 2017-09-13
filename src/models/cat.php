@@ -1,5 +1,5 @@
 <?php 
-namespace Models;
+namespace Acme\models;
 	Class Cat {
 
 		public function __construct(){
