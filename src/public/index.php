@@ -27,6 +27,14 @@ $container['view'] = function ($container) {
 };
 */
 
+$app->get('/',function (Request $request,Response $response){
+
+	$response->getBody->write("Homepage");
+
+	return $response;
+
+});
+
 $app->get('/hello/{name}', function (Request $request, Response $response) {
     $name = $request->getAttribute('name');
     $response->getBody()->write("Hello, $name");
@@ -38,9 +46,12 @@ $app->get('/cats', function (Request $request, Response $response) {
     //$this->logger->addInfo("Ticket list");
     //$mapper = new TicketMapper($this->db);
    // $tickets = $mapper->getTickets();
+	$cats = new Acme\models\Cat("ker");
+
+	$nickname = $cats->nickname;
 
 
-    $response = $this->view->render($response, "cats.phtml", array("hello" => "Hi"));
+    $response = $this->view->render($response, "cats.phtml", ["nickname" => $nickname]);
 
     return $response;
 });
@@ -49,10 +60,18 @@ $app->get('/guests', function (Request $request, Response $response) {
     //$this->logger->addInfo("Ticket list");
     //$mapper = new TicketMapper($this->db);
    // $tickets = $mapper->getTickets();
-	$guests = new Acme\models\Guest("Pera","peric");
+	$guests =  new Acme\models\Guest("Pera","peric");
 
 
-    $response = $this->view->render($response, "guests.phtml",  ["guests" => $guests]);
+	print_r($guests);
+	$guestPrintData = print_r($guests, true);
+
+
+
+	$name = $guests->name;
+	$surname = $guests->surname;
+
+    $response = $this->view->render($response, "guests.phtml",  ["guests"=>$guests,"name" => $name,"surname"=>$surname]);
 
     return $response;
 });
